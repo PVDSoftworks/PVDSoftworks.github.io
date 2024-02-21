@@ -1,0 +1,1447 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>PVD Softworks</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: black;
+            color: white;
+        }
+
+        header {
+            background-color: #800080;
+            color: white;
+            padding: 20px;
+            text-align: center;
+            position: relative;
+        }
+
+        .cat-icon {
+            position: absolute;
+            top: 10px;
+            right: 20px;
+            font-size: 30px;
+        }
+
+        main {
+            padding: 20px;
+        }
+
+        section {
+            margin-bottom: 30px;
+        }
+
+        footer {
+            background-color: #800080;
+            color: white;
+            padding: 10px;
+            text-align: center;
+        }
+
+        #game-container {
+            width: 600px;
+            height: 200px;
+            margin: 0 auto;
+            overflow: hidden;
+            background-color: #800080;
+            position: relative;
+        }
+
+        #ball {
+            width: 20px;
+            height: 20px;
+            background-color: #0077be;
+            border-radius: 50%;
+            position: absolute;
+            left: 50%;
+            top: 50%;
+        }
+    </style>
+</head>
+<body>
+ <header>
+    <table width="100%" cellpadding="0" cellspacing="0">
+        <tr>
+            <td align="left"> <td width="250">                <html><head><meta charset='utf-8'><title>Converted document</title></head><body><div><img alt='' src='data:image/png;base64,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' width="250">
+            </div></body> 
+                <td align="left"> <h1>PVD Softworks</h1> 
+                    <td align="right">
+                        <section>
+    
+            <div id="game-container">
+                <div id="ball"></div>
+            </div>
+        </section>
+    </main>
+
+    
+
+    <script>
+        var ball = document.getElementById("ball");
+        var gameContainer = document.getElementById("game-container");
+        var ballRadius = ball.offsetWidth / 2;
+        var dx = 2;
+        var dy = 2;
+
+        function animate() {
+            ball.style.left = (ball.offsetLeft + dx) + "px";
+            ball.style.top = (ball.offsetTop + dy) + "px";
+
+            if (ball.offsetTop + ballRadius > gameContainer.offsetHeight || ball.offsetTop - ballRadius < 0) {
+                dy *= -1;
+            }
+
+            if (ball.offsetLeft + ballRadius > gameContainer.offsetWidth || ball.offsetLeft - ballRadius < 0) {
+                dx *= -1;
+            }
+
+            requestAnimationFrame(animate);
+        }
+
+        window.onload = animate;
+    </script>           
+            </td>
+     </tr>
+    </table>
+</header>
+                
+    <main>
+        <section>
+            <h2>About Us</h2>
+            <p>PVD Softworks is a software company dedicated to delivering solutions that drive innovation and success for our clients across diverse industries. 
+With decades of combined experience our team strives to form long-term partnerships backed by ongoing support and a commitment to staying ahead of industry trends - empowering our clients to harness the full power of technology to achieve their business goals.</p>
+        </section>
+
+        <section>
+            <h2>Contact Information</h2>
+            <ul>
+                <li><strong>Name:</strong> [Your Name]</li>
+                <li><strong>Email:</strong> [Your Email Address]</li>
+                <li><strong>Phone:</strong> [Your Phone Number]</li>
+            </ul>
+        </section>
+
+       
+   
+        <html>
+<head>
+	<title>Maintenance - Moota.co</title>
+	<link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Permanent+Marker">
+	<style type="text/css">
+		body {
+			background-color: black;
+		}
+
+		#pacman {
+			height: 470px;
+			width: 382px;
+			border-radius: 5px;
+			margin: 20px auto;
+		}
+
+		
+	</style>
+</head>
+<body>
+	<div id="shim"></div>
+	
+	<div id="pacman"></div>
+    <footer>
+        <p>&copy; PVD Softworks</p>
+    </footer>
+
+	<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/modernizr/2.8.3/modernizr.min.js"></script>
+	<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+	<script type="text/javascript">
+		/*jslint browser: true, undef: true, eqeqeq: true, nomen: true, white: true */
+/*global window: false, document: false */
+
+/*
+ * fix looped audio
+ * add fruits + levels
+ * fix what happens when a ghost is eaten (should go back to base)
+ * do proper ghost mechanics (blinky/wimpy etc)
+ */
+
+var NONE        = 4,
+    UP          = 3,
+    LEFT        = 2,
+    DOWN        = 1,
+    RIGHT       = 11,
+    WAITING     = 5,
+    PAUSE       = 6,
+    PLAYING     = 7,
+    COUNTDOWN   = 8,
+    EATEN_PAUSE = 9,
+    DYING       = 10,
+    Pacman      = {};
+
+Pacman.FPS = 30;
+
+Pacman.Ghost = function (game, map, colour) {
+
+    var position  = null,
+        direction = null,
+        eatable   = null,
+        eaten     = null,
+        due       = null;
+    
+    function getNewCoord(dir, current) { 
+        
+        var speed  = isVunerable() ? 1 : isHidden() ? 4 : 2,
+            xSpeed = (dir === LEFT && -speed || dir === RIGHT && speed || 0),
+            ySpeed = (dir === DOWN && speed || dir === UP && -speed || 0);
+    
+        return {
+            "x": addBounded(current.x, xSpeed),
+            "y": addBounded(current.y, ySpeed)
+        };
+    };
+
+    /* Collision detection(walls) is done when a ghost lands on an
+     * exact block, make sure they dont skip over it 
+     */
+    function addBounded(x1, x2) { 
+        var rem    = x1 % 10, 
+            result = rem + x2;
+        if (rem !== 0 && result > 10) {
+            return x1 + (10 - rem);
+        } else if(rem > 0 && result < 0) { 
+            return x1 - rem;
+        }
+        return x1 + x2;
+    };
+    
+    function isVunerable() { 
+        return eatable !== null;
+    };
+    
+    function isDangerous() {
+        return eaten === null;
+    };
+
+    function isHidden() { 
+        return eatable === null && eaten !== null;
+    };
+    
+    function getRandomDirection() {
+        var moves = (direction === LEFT || direction === RIGHT) 
+            ? [UP, DOWN] : [LEFT, RIGHT];
+        return moves[Math.floor(Math.random() * 2)];
+    };
+    
+    function reset() {
+        eaten = null;
+        eatable = null;
+        position = {"x": 90, "y": 80};
+        direction = getRandomDirection();
+        due = getRandomDirection();
+    };
+    
+    function onWholeSquare(x) {
+        return x % 10 === 0;
+    };
+    
+    function oppositeDirection(dir) { 
+        return dir === LEFT && RIGHT ||
+            dir === RIGHT && LEFT ||
+            dir === UP && DOWN || UP;
+    };
+
+    function makeEatable() {
+        direction = oppositeDirection(direction);
+        eatable = game.getTick();
+    };
+
+    function eat() { 
+        eatable = null;
+        eaten = game.getTick();
+    };
+
+    function pointToCoord(x) {
+        return Math.round(x / 10);
+    };
+
+    function nextSquare(x, dir) {
+        var rem = x % 10;
+        if (rem === 0) { 
+            return x; 
+        } else if (dir === RIGHT || dir === DOWN) { 
+            return x + (10 - rem);
+        } else {
+            return x - rem;
+        }
+    };
+
+    function onGridSquare(pos) {
+        return onWholeSquare(pos.y) && onWholeSquare(pos.x);
+    };
+
+    function secondsAgo(tick) { 
+        return (game.getTick() - tick) / Pacman.FPS;
+    };
+
+    function getColour() { 
+        if (eatable) { 
+            if (secondsAgo(eatable) > 5) { 
+                return game.getTick() % 20 > 10 ? "#FFFFFF" : "#0000BB";
+            } else { 
+                return "#0000BB";
+            }
+        } else if(eaten) { 
+            return "#222";
+        } 
+        return colour;
+    };
+
+    function draw(ctx) {
+  
+        var s    = map.blockSize, 
+            top  = (position.y/10) * s,
+            left = (position.x/10) * s;
+    
+        if (eatable && secondsAgo(eatable) > 8) {
+            eatable = null;
+        }
+        
+        if (eaten && secondsAgo(eaten) > 3) { 
+            eaten = null;
+        }
+        
+        var tl = left + s;
+        var base = top + s - 3;
+        var inc = s / 10;
+
+        var high = game.getTick() % 10 > 5 ? 3  : -3;
+        var low  = game.getTick() % 10 > 5 ? -3 : 3;
+
+        ctx.fillStyle = getColour();
+        ctx.beginPath();
+
+        ctx.moveTo(left, base);
+
+        ctx.quadraticCurveTo(left, top, left + (s/2),  top);
+        ctx.quadraticCurveTo(left + s, top, left+s,  base);
+        
+        // Wavy things at the bottom
+        ctx.quadraticCurveTo(tl-(inc*1), base+high, tl - (inc * 2),  base);
+        ctx.quadraticCurveTo(tl-(inc*3), base+low, tl - (inc * 4),  base);
+        ctx.quadraticCurveTo(tl-(inc*5), base+high, tl - (inc * 6),  base);
+        ctx.quadraticCurveTo(tl-(inc*7), base+low, tl - (inc * 8),  base); 
+        ctx.quadraticCurveTo(tl-(inc*9), base+high, tl - (inc * 10), base); 
+
+        ctx.closePath();
+        ctx.fill();
+
+        ctx.beginPath();
+        ctx.fillStyle = "#FFF";
+        ctx.arc(left + 6,top + 6, s / 6, 0, 300, false);
+        ctx.arc((left + s) - 6,top + 6, s / 6, 0, 300, false);
+        ctx.closePath();
+        ctx.fill();
+
+        var f = s / 12;
+        var off = {};
+        off[RIGHT] = [f, 0];
+        off[LEFT]  = [-f, 0];
+        off[UP]    = [0, -f];
+        off[DOWN]  = [0, f];
+
+        ctx.beginPath();
+        ctx.fillStyle = "#000";
+        ctx.arc(left+6+off[direction][0], top+6+off[direction][1], 
+                s / 15, 0, 300, false);
+        ctx.arc((left+s)-6+off[direction][0], top+6+off[direction][1], 
+                s / 15, 0, 300, false);
+        ctx.closePath();
+        ctx.fill();
+
+    };
+
+    function pane(pos) {
+
+        if (pos.y === 100 && pos.x >= 190 && direction === RIGHT) {
+            return {"y": 100, "x": -10};
+        }
+        
+        if (pos.y === 100 && pos.x <= -10 && direction === LEFT) {
+            return position = {"y": 100, "x": 190};
+        }
+
+        return false;
+    };
+    
+    function move(ctx) {
+        
+        var oldPos = position,
+            onGrid = onGridSquare(position),
+            npos   = null;
+        
+        if (due !== direction) {
+            
+            npos = getNewCoord(due, position);
+            
+            if (onGrid &&
+                map.isFloorSpace({
+                    "y":pointToCoord(nextSquare(npos.y, due)),
+                    "x":pointToCoord(nextSquare(npos.x, due))})) {
+                direction = due;
+            } else {
+                npos = null;
+            }
+        }
+        
+        if (npos === null) {
+            npos = getNewCoord(direction, position);
+        }
+        
+        if (onGrid &&
+            map.isWallSpace({
+                "y" : pointToCoord(nextSquare(npos.y, direction)),
+                "x" : pointToCoord(nextSquare(npos.x, direction))
+            })) {
+            
+            due = getRandomDirection();            
+            return move(ctx);
+        }
+
+        position = npos;        
+        
+        var tmp = pane(position);
+        if (tmp) { 
+            position = tmp;
+        }
+        
+        due = getRandomDirection();
+        
+        return {
+            "new" : position,
+            "old" : oldPos
+        };
+    };
+    
+    return {
+        "eat"         : eat,
+        "isVunerable" : isVunerable,
+        "isDangerous" : isDangerous,
+        "makeEatable" : makeEatable,
+        "reset"       : reset,
+        "move"        : move,
+        "draw"        : draw
+    };
+};
+
+Pacman.User = function (game, map) {
+    
+    var position  = null,
+        direction = null,
+        eaten     = null,
+        due       = null, 
+        lives     = null,
+        score     = 5,
+        keyMap    = {};
+    
+    keyMap[KEY.ARROW_LEFT]  = LEFT;
+    keyMap[KEY.ARROW_UP]    = UP;
+    keyMap[KEY.ARROW_RIGHT] = RIGHT;
+    keyMap[KEY.ARROW_DOWN]  = DOWN;
+
+    function addScore(nScore) { 
+        score += nScore;
+        if (score >= 10000 && score - nScore < 10000) { 
+            lives += 1;
+        }
+    };
+
+    function theScore() { 
+        return score;
+    };
+
+    function loseLife() { 
+        lives -= 1;
+    };
+
+    function getLives() {
+        return lives;
+    };
+
+    function initUser() {
+        score = 0;
+        lives = 3;
+        newLevel();
+    }
+    
+    function newLevel() {
+        resetPosition();
+        eaten = 0;
+    };
+    
+    function resetPosition() {
+        position = {"x": 90, "y": 120};
+        direction = LEFT;
+        due = LEFT;
+    };
+    
+    function reset() {
+        initUser();
+        resetPosition();
+    };        
+    
+    function keyDown(e) {
+        if (typeof keyMap[e.keyCode] !== "undefined") { 
+            due = keyMap[e.keyCode];
+            e.preventDefault();
+            e.stopPropagation();
+            return false;
+        }
+        return true;
+	};
+
+    function getNewCoord(dir, current) {   
+        return {
+            "x": current.x + (dir === LEFT && -2 || dir === RIGHT && 2 || 0),
+            "y": current.y + (dir === DOWN && 2 || dir === UP    && -2 || 0)
+        };
+    };
+
+    function onWholeSquare(x) {
+        return x % 10 === 0;
+    };
+
+    function pointToCoord(x) {
+        return Math.round(x/10);
+    };
+    
+    function nextSquare(x, dir) {
+        var rem = x % 10;
+        if (rem === 0) { 
+            return x; 
+        } else if (dir === RIGHT || dir === DOWN) { 
+            return x + (10 - rem);
+        } else {
+            return x - rem;
+        }
+    };
+
+    function next(pos, dir) {
+        return {
+            "y" : pointToCoord(nextSquare(pos.y, dir)),
+            "x" : pointToCoord(nextSquare(pos.x, dir)),
+        };                               
+    };
+
+    function onGridSquare(pos) {
+        return onWholeSquare(pos.y) && onWholeSquare(pos.x);
+    };
+
+    function isOnSamePlane(due, dir) { 
+        return ((due === LEFT || due === RIGHT) && 
+                (dir === LEFT || dir === RIGHT)) || 
+            ((due === UP || due === DOWN) && 
+             (dir === UP || dir === DOWN));
+    };
+
+    function move(ctx) {
+        
+        var npos        = null, 
+            nextWhole   = null, 
+            oldPosition = position,
+            block       = null;
+        
+        if (due !== direction) {
+            npos = getNewCoord(due, position);
+            
+            if (isOnSamePlane(due, direction) || 
+                (onGridSquare(position) && 
+                 map.isFloorSpace(next(npos, due)))) {
+                direction = due;
+            } else {
+                npos = null;
+            }
+        }
+
+        if (npos === null) {
+            npos = getNewCoord(direction, position);
+        }
+        
+        if (onGridSquare(position) && map.isWallSpace(next(npos, direction))) {
+            direction = NONE;
+        }
+
+        if (direction === NONE) {
+            return {"new" : position, "old" : position};
+        }
+        
+        if (npos.y === 100 && npos.x >= 190 && direction === RIGHT) {
+            npos = {"y": 100, "x": -10};
+        }
+        
+        if (npos.y === 100 && npos.x <= -12 && direction === LEFT) {
+            npos = {"y": 100, "x": 190};
+        }
+        
+        position = npos;        
+        nextWhole = next(position, direction);
+        
+        block = map.block(nextWhole);        
+        
+        if ((isMidSquare(position.y) || isMidSquare(position.x)) &&
+            block === Pacman.BISCUIT || block === Pacman.PILL) {
+            
+            map.setBlock(nextWhole, Pacman.EMPTY);           
+            addScore((block === Pacman.BISCUIT) ? 10 : 50);
+            eaten += 1;
+            
+            if (eaten === 182) {
+                game.completedLevel();
+            }
+            
+            if (block === Pacman.PILL) { 
+                game.eatenPill();
+            }
+        }   
+                
+        return {
+            "new" : position,
+            "old" : oldPosition
+        };
+    };
+
+    function isMidSquare(x) { 
+        var rem = x % 10;
+        return rem > 3 || rem < 7;
+    };
+
+    function calcAngle(dir, pos) { 
+        if (dir == RIGHT && (pos.x % 10 < 5)) {
+            return {"start":0.25, "end":1.75, "direction": false};
+        } else if (dir === DOWN && (pos.y % 10 < 5)) { 
+            return {"start":0.75, "end":2.25, "direction": false};
+        } else if (dir === UP && (pos.y % 10 < 5)) { 
+            return {"start":1.25, "end":1.75, "direction": true};
+        } else if (dir === LEFT && (pos.x % 10 < 5)) {             
+            return {"start":0.75, "end":1.25, "direction": true};
+        }
+        return {"start":0, "end":2, "direction": false};
+    };
+
+    function drawDead(ctx, amount) { 
+
+        var size = map.blockSize, 
+            half = size / 2;
+
+        if (amount >= 1) { 
+            return;
+        }
+
+        ctx.fillStyle = "#FFFF00";
+        ctx.beginPath();        
+        ctx.moveTo(((position.x/10) * size) + half, 
+                   ((position.y/10) * size) + half);
+        
+        ctx.arc(((position.x/10) * size) + half, 
+                ((position.y/10) * size) + half,
+                half, 0, Math.PI * 2 * amount, true); 
+        
+        ctx.fill();    
+    };
+
+    function draw(ctx) { 
+
+        var s     = map.blockSize, 
+            angle = calcAngle(direction, position);
+
+        ctx.fillStyle = "#FFFF00";
+
+        ctx.beginPath();        
+
+        ctx.moveTo(((position.x/10) * s) + s / 2,
+                   ((position.y/10) * s) + s / 2);
+        
+        ctx.arc(((position.x/10) * s) + s / 2,
+                ((position.y/10) * s) + s / 2,
+                s / 2, Math.PI * angle.start, 
+                Math.PI * angle.end, angle.direction); 
+        
+        ctx.fill();    
+    };
+    
+    initUser();
+
+    return {
+        "draw"          : draw,
+        "drawDead"      : drawDead,
+        "loseLife"      : loseLife,
+        "getLives"      : getLives,
+        "score"         : score,
+        "addScore"      : addScore,
+        "theScore"      : theScore,
+        "keyDown"       : keyDown,
+        "move"          : move,
+        "newLevel"      : newLevel,
+        "reset"         : reset,
+        "resetPosition" : resetPosition
+    };
+};
+
+Pacman.Map = function (size) {
+    
+    var height    = null, 
+        width     = null, 
+        blockSize = size,
+        pillSize  = 0,
+        map       = null;
+    
+    function withinBounds(y, x) {
+        return y >= 0 && y < height && x >= 0 && x < width;
+    }
+    
+    function isWall(pos) {
+        return withinBounds(pos.y, pos.x) && map[pos.y][pos.x] === Pacman.WALL;
+    }
+    
+    function isFloorSpace(pos) {
+        if (!withinBounds(pos.y, pos.x)) {
+            return false;
+        }
+        var peice = map[pos.y][pos.x];
+        return peice === Pacman.EMPTY || 
+            peice === Pacman.BISCUIT ||
+            peice === Pacman.PILL;
+    }
+    
+    function drawWall(ctx) {
+
+        var i, j, p, line;
+        
+        ctx.strokeStyle = "#0000FF";
+        ctx.lineWidth   = 5;
+        ctx.lineCap     = "round";
+        
+        for (i = 0; i < Pacman.WALLS.length; i += 1) {
+            line = Pacman.WALLS[i];
+            ctx.beginPath();
+
+            for (j = 0; j < line.length; j += 1) {
+
+                p = line[j];
+                
+                if (p.move) {
+                    ctx.moveTo(p.move[0] * blockSize, p.move[1] * blockSize);
+                } else if (p.line) {
+                    ctx.lineTo(p.line[0] * blockSize, p.line[1] * blockSize);
+                } else if (p.curve) {
+                    ctx.quadraticCurveTo(p.curve[0] * blockSize, 
+                                         p.curve[1] * blockSize,
+                                         p.curve[2] * blockSize, 
+                                         p.curve[3] * blockSize);   
+                }
+            }
+            ctx.stroke();
+        }
+    }
+    
+    function reset() {       
+        map    = Pacman.MAP.clone();
+        height = map.length;
+        width  = map[0].length;        
+    };
+
+    function block(pos) {
+        return map[pos.y][pos.x];
+    };
+    
+    function setBlock(pos, type) {
+        map[pos.y][pos.x] = type;
+    };
+
+    function drawPills(ctx) { 
+
+        if (++pillSize > 30) {
+            pillSize = 0;
+        }
+        
+        for (i = 0; i < height; i += 1) {
+		    for (j = 0; j < width; j += 1) {
+                if (map[i][j] === Pacman.PILL) {
+                    ctx.beginPath();
+
+                    ctx.fillStyle = "#000";
+		            ctx.fillRect((j * blockSize), (i * blockSize), 
+                                 blockSize, blockSize);
+
+                    ctx.fillStyle = "#FFF";
+                    ctx.arc((j * blockSize) + blockSize / 2,
+                            (i * blockSize) + blockSize / 2,
+                            Math.abs(5 - (pillSize/3)), 
+                            0, 
+                            Math.PI * 2, false); 
+                    ctx.fill();
+                    ctx.closePath();
+                }
+		    }
+	    }
+    };
+    
+    function draw(ctx) {
+        
+        var i, j, size = blockSize;
+
+        ctx.fillStyle = "#000";
+	    ctx.fillRect(0, 0, width * size, height * size);
+
+        drawWall(ctx);
+        
+        for (i = 0; i < height; i += 1) {
+		    for (j = 0; j < width; j += 1) {
+			    drawBlock(i, j, ctx);
+		    }
+	    }
+    };
+    
+    function drawBlock(y, x, ctx) {
+
+        var layout = map[y][x];
+
+        if (layout === Pacman.PILL) {
+            return;
+        }
+
+        ctx.beginPath();
+        
+        if (layout === Pacman.EMPTY || layout === Pacman.BLOCK || 
+            layout === Pacman.BISCUIT) {
+            
+            ctx.fillStyle = "#000";
+		    ctx.fillRect((x * blockSize), (y * blockSize), 
+                         blockSize, blockSize);
+
+            if (layout === Pacman.BISCUIT) {
+                ctx.fillStyle = "#FFF";
+		        ctx.fillRect((x * blockSize) + (blockSize / 2.5), 
+                             (y * blockSize) + (blockSize / 2.5), 
+                             blockSize / 6, blockSize / 6);
+	        }
+        }
+        ctx.closePath();	 
+    };
+
+    reset();
+    
+    return {
+        "draw"         : draw,
+        "drawBlock"    : drawBlock,
+        "drawPills"    : drawPills,
+        "block"        : block,
+        "setBlock"     : setBlock,
+        "reset"        : reset,
+        "isWallSpace"  : isWall,
+        "isFloorSpace" : isFloorSpace,
+        "height"       : height,
+        "width"        : width,
+        "blockSize"    : blockSize
+    };
+};
+
+Pacman.Audio = function(game) {
+    
+    var files          = [], 
+        endEvents      = [],
+        progressEvents = [],
+        playing        = [];
+    
+    function load(name, path, cb) { 
+
+        var f = files[name] = document.createElement("audio");
+
+        progressEvents[name] = function(event) { progress(event, name, cb); };
+        
+        f.addEventListener("canplaythrough", progressEvents[name], true);
+        f.setAttribute("preload", "true");
+        f.setAttribute("autobuffer", "true");
+        f.setAttribute("src", path);
+        f.pause();        
+    };
+
+    function progress(event, name, callback) { 
+        if (event.loaded === event.total && typeof callback === "function") {
+            callback();
+            files[name].removeEventListener("canplaythrough", 
+                                            progressEvents[name], true);
+        }
+    };
+
+    function disableSound() {
+        for (var i = 0; i < playing.length; i++) {
+            files[playing[i]].pause();
+            files[playing[i]].currentTime = 0;
+        }
+        playing = [];
+    };
+
+    function ended(name) { 
+
+        var i, tmp = [], found = false;
+
+        files[name].removeEventListener("ended", endEvents[name], true);
+
+        for (i = 0; i < playing.length; i++) {
+            if (!found && playing[i]) { 
+                found = true;
+            } else { 
+                tmp.push(playing[i]);
+            }
+        }
+        playing = tmp;
+    };
+
+    function play(name) { 
+        if (!game.soundDisabled()) {
+            endEvents[name] = function() { ended(name); };
+            playing.push(name);
+            files[name].addEventListener("ended", endEvents[name], true);
+            files[name].play();
+        }
+    };
+
+    function pause() { 
+        for (var i = 0; i < playing.length; i++) {
+            files[playing[i]].pause();
+        }
+    };
+    
+    function resume() { 
+        for (var i = 0; i < playing.length; i++) {
+            files[playing[i]].play();
+        }        
+    };
+    
+    return {
+        "disableSound" : disableSound,
+        "load"         : load,
+        "play"         : play,
+        "pause"        : pause,
+        "resume"       : resume
+    };
+};
+
+var PACMAN = (function () {
+
+    var state        = WAITING,
+        audio        = null,
+        ghosts       = [],
+        ghostSpecs   = ["#00FFDE", "#FF0000", "#FFB8DE", "#FFB847"],
+        eatenCount   = 0,
+        level        = 0,
+        tick         = 0,
+        ghostPos, userPos, 
+        stateChanged = true,
+        timerStart   = null,
+        lastTime     = 0,
+        ctx          = null,
+        timer        = null,
+        map          = null,
+        user         = null,
+        stored       = null;
+
+    function getTick() { 
+        return tick;
+    };
+
+    function drawScore(text, position) {
+        ctx.fillStyle = "#FFFFFF";
+        ctx.font      = "12px BDCartoonShoutRegular";
+        ctx.fillText(text, 
+                     (position["new"]["x"] / 10) * map.blockSize, 
+                     ((position["new"]["y"] + 5) / 10) * map.blockSize);
+    }
+    
+    function dialog(text) {
+        ctx.fillStyle = "#FFFF00";
+        ctx.font      = "18px Calibri";
+        var width = ctx.measureText(text).width,
+            x     = ((map.width * map.blockSize) - width) / 2;        
+        ctx.fillText(text, x, (map.height * 10) + 8);
+    }
+
+    function soundDisabled() {
+        return localStorage["soundDisabled"] === "true";
+    };
+    
+    function startLevel() {        
+        user.resetPosition();
+        for (var i = 0; i < ghosts.length; i += 1) { 
+            ghosts[i].reset();
+        }
+        audio.play("start");
+        timerStart = tick;
+        setState(COUNTDOWN);
+    }    
+
+    function startNewGame() {
+        setState(WAITING);
+        level = 1;
+        user.reset();
+        map.reset();
+        map.draw(ctx);
+        startLevel();
+    }
+
+    function keyDown(e) {
+        if (e.keyCode === KEY.N) {
+            startNewGame();
+        } else if (e.keyCode === KEY.S) {
+            audio.disableSound();
+            localStorage["soundDisabled"] = !soundDisabled();
+        } else if (e.keyCode === KEY.P && state === PAUSE) {
+            audio.resume();
+            map.draw(ctx);
+            setState(stored);
+        } else if (e.keyCode === KEY.P) {
+            stored = state;
+            setState(PAUSE);
+            audio.pause();
+            map.draw(ctx);
+            dialog("Paused");
+        } else if (state !== PAUSE) {   
+            return user.keyDown(e);
+        }
+        return true;
+    }    
+
+    function loseLife() {        
+        setState(WAITING);
+        user.loseLife();
+        if (user.getLives() > 0) {
+            startLevel();
+        }
+    }
+
+    function setState(nState) { 
+        state = nState;
+        stateChanged = true;
+    };
+    
+    function collided(user, ghost) {
+        return (Math.sqrt(Math.pow(ghost.x - user.x, 2) + 
+                          Math.pow(ghost.y - user.y, 2))) < 10;
+    };
+
+    function drawFooter() {
+        
+        var topLeft  = (map.height * map.blockSize),
+            textBase = topLeft + 17;
+        
+        ctx.fillStyle = "#000000";
+        ctx.fillRect(0, topLeft, (map.width * map.blockSize), 30);
+        
+        ctx.fillStyle = "#FFFF00";
+
+        for (var i = 0, len = user.getLives(); i < len; i++) {
+            ctx.fillStyle = "#FFFF00";
+            ctx.beginPath();
+            ctx.moveTo(150 + (25 * i) + map.blockSize / 2,
+                       (topLeft+1) + map.blockSize / 2);
+            
+            ctx.arc(150 + (25 * i) + map.blockSize / 2,
+                    (topLeft+1) + map.blockSize / 2,
+                    map.blockSize / 2, Math.PI * 0.25, Math.PI * 1.75, false);
+            ctx.fill();
+        }
+
+        ctx.fillStyle = !soundDisabled() ? "#00FF00" : "#FF0000";
+        ctx.font = "bold 16px sans-serif";
+        //ctx.fillText("♪", 10, textBase);
+        ctx.fillText("s", 10, textBase);
+
+        ctx.fillStyle = "#FFFF00";
+        ctx.font      = "14px Calibri";
+        ctx.fillText("Score: " + user.theScore(), 30, textBase);
+        ctx.fillText("Level: " + level, 260, textBase);
+    }
+
+    function redrawBlock(pos) {
+        map.drawBlock(Math.floor(pos.y/10), Math.floor(pos.x/10), ctx);
+        map.drawBlock(Math.ceil(pos.y/10), Math.ceil(pos.x/10), ctx);
+    }
+
+    function mainDraw() { 
+
+        var diff, u, i, len, nScore;
+        
+        ghostPos = [];
+
+        for (i = 0, len = ghosts.length; i < len; i += 1) {
+            ghostPos.push(ghosts[i].move(ctx));
+        }
+        u = user.move(ctx);
+        
+        for (i = 0, len = ghosts.length; i < len; i += 1) {
+            redrawBlock(ghostPos[i].old);
+        }
+        redrawBlock(u.old);
+        
+        for (i = 0, len = ghosts.length; i < len; i += 1) {
+            ghosts[i].draw(ctx);
+        }                     
+        user.draw(ctx);
+        
+        userPos = u["new"];
+        
+        for (i = 0, len = ghosts.length; i < len; i += 1) {
+            if (collided(userPos, ghostPos[i]["new"])) {
+                if (ghosts[i].isVunerable()) { 
+                    audio.play("eatghost");
+                    ghosts[i].eat();
+                    eatenCount += 1;
+                    nScore = eatenCount * 50;
+                    drawScore(nScore, ghostPos[i]);
+                    user.addScore(nScore);                    
+                    setState(EATEN_PAUSE);
+                    timerStart = tick;
+                } else if (ghosts[i].isDangerous()) {
+                    audio.play("die");
+                    setState(DYING);
+                    timerStart = tick;
+                }
+            }
+        }                             
+    };
+
+    function mainLoop() {
+
+        var diff;
+
+        if (state !== PAUSE) { 
+            ++tick;
+        }
+
+        map.drawPills(ctx);
+
+        if (state === PLAYING) {
+            mainDraw();
+        } else if (state === WAITING && stateChanged) {            
+            stateChanged = false;
+            map.draw(ctx);
+            dialog("Press N to start a New game");            
+        } else if (state === EATEN_PAUSE && 
+                   (tick - timerStart) > (Pacman.FPS / 3)) {
+            map.draw(ctx);
+            setState(PLAYING);
+        } else if (state === DYING) {
+            if (tick - timerStart > (Pacman.FPS * 2)) { 
+                loseLife();
+            } else { 
+                redrawBlock(userPos);
+                for (i = 0, len = ghosts.length; i < len; i += 1) {
+                    redrawBlock(ghostPos[i].old);
+                    ghostPos.push(ghosts[i].draw(ctx));
+                }                                   
+                user.drawDead(ctx, (tick - timerStart) / (Pacman.FPS * 2));
+            }
+        } else if (state === COUNTDOWN) {
+            
+            diff = 5 + Math.floor((timerStart - tick) / Pacman.FPS);
+            
+            if (diff === 0) {
+                map.draw(ctx);
+                setState(PLAYING);
+            } else {
+                if (diff !== lastTime) { 
+                    lastTime = diff;
+                    map.draw(ctx);
+                    dialog("Starting in: " + diff);
+                }
+            }
+        } 
+
+        drawFooter();
+    }
+
+    function eatenPill() {
+        audio.play("eatpill");
+        timerStart = tick;
+        eatenCount = 0;
+        for (i = 0; i < ghosts.length; i += 1) {
+            ghosts[i].makeEatable(ctx);
+        }        
+    };
+    
+    function completedLevel() {
+        setState(WAITING);
+        level += 1;
+        map.reset();
+        user.newLevel();
+        startLevel();
+    };
+
+    function keyPress(e) { 
+        if (state !== WAITING && state !== PAUSE) { 
+            e.preventDefault();
+            e.stopPropagation();
+        }
+    };
+    
+    function init(wrapper, root) {
+        
+        var i, len, ghost,
+            blockSize = wrapper.offsetWidth / 19,
+            canvas    = document.createElement("canvas");
+        
+        canvas.setAttribute("width", (blockSize * 19) + "px");
+        canvas.setAttribute("height", (blockSize * 22) + 30 + "px");
+
+        wrapper.appendChild(canvas);
+
+        ctx  = canvas.getContext('2d');
+
+        audio = new Pacman.Audio({"soundDisabled":soundDisabled});
+        map   = new Pacman.Map(blockSize);
+        user  = new Pacman.User({ 
+            "completedLevel" : completedLevel, 
+            "eatenPill"      : eatenPill 
+        }, map);
+
+        for (i = 0, len = ghostSpecs.length; i < len; i += 1) {
+            ghost = new Pacman.Ghost({"getTick":getTick}, map, ghostSpecs[i]);
+            ghosts.push(ghost);
+        }
+        
+        map.draw(ctx);
+        dialog("Loading ...");
+
+        var extension = Modernizr.audio.ogg ? 'ogg' : 'mp3';
+
+        var audio_files = [
+            ["start", root + "audio/opening_song." + extension],
+            ["die", root + "audio/die." + extension],
+            ["eatghost", root + "audio/eatghost." + extension],
+            ["eatpill", root + "audio/eatpill." + extension],
+            ["eating", root + "audio/eating.short." + extension],
+            ["eating2", root + "audio/eating.short." + extension]
+        ];
+
+        load(audio_files, function() { loaded(); });
+    };
+
+    function load(arr, callback) { 
+        
+        if (arr.length === 0) { 
+            callback();
+        } else { 
+            var x = arr.pop();
+            audio.load(x[0], x[1], function() { load(arr, callback); });
+        }
+    };
+        
+    function loaded() {
+
+        dialog("Press N to Start");
+        
+        document.addEventListener("keydown", keyDown, true);
+        document.addEventListener("keypress", keyPress, true); 
+        
+        timer = window.setInterval(mainLoop, 1000 / Pacman.FPS);
+    };
+    
+    return {
+        "init" : init
+    };
+    
+}());
+
+/* Human readable keyCode index */
+var KEY = {'BACKSPACE': 8, 'TAB': 9, 'NUM_PAD_CLEAR': 12, 'ENTER': 13, 'SHIFT': 16, 'CTRL': 17, 'ALT': 18, 'PAUSE': 19, 'CAPS_LOCK': 20, 'ESCAPE': 27, 'SPACEBAR': 32, 'PAGE_UP': 33, 'PAGE_DOWN': 34, 'END': 35, 'HOME': 36, 'ARROW_LEFT': 37, 'ARROW_UP': 38, 'ARROW_RIGHT': 39, 'ARROW_DOWN': 40, 'PRINT_SCREEN': 44, 'INSERT': 45, 'DELETE': 46, 'SEMICOLON': 59, 'WINDOWS_LEFT': 91, 'WINDOWS_RIGHT': 92, 'SELECT': 93, 'NUM_PAD_ASTERISK': 106, 'NUM_PAD_PLUS_SIGN': 107, 'NUM_PAD_HYPHEN-MINUS': 109, 'NUM_PAD_FULL_STOP': 110, 'NUM_PAD_SOLIDUS': 111, 'NUM_LOCK': 144, 'SCROLL_LOCK': 145, 'SEMICOLON': 186, 'EQUALS_SIGN': 187, 'COMMA': 188, 'HYPHEN-MINUS': 189, 'FULL_STOP': 190, 'SOLIDUS': 191, 'GRAVE_ACCENT': 192, 'LEFT_SQUARE_BRACKET': 219, 'REVERSE_SOLIDUS': 220, 'RIGHT_SQUARE_BRACKET': 221, 'APOSTROPHE': 222};
+
+(function () {
+	/* 0 - 9 */
+	for (var i = 48; i <= 57; i++) {
+        KEY['' + (i - 48)] = i;
+	}
+	/* A - Z */
+	for (i = 65; i <= 90; i++) {
+        KEY['' + String.fromCharCode(i)] = i;
+	}
+	/* NUM_PAD_0 - NUM_PAD_9 */
+	for (i = 96; i <= 105; i++) {
+        KEY['NUM_PAD_' + (i - 96)] = i;
+	}
+	/* F1 - F12 */
+	for (i = 112; i <= 123; i++) {
+        KEY['F' + (i - 112 + 1)] = i;
+	}
+})();
+
+Pacman.WALL    = 0;
+Pacman.BISCUIT = 1;
+Pacman.EMPTY   = 2;
+Pacman.BLOCK   = 3;
+Pacman.PILL    = 4;
+
+Pacman.MAP = [
+    [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+	[0, 1, 1, 1, 1, 1, 1, 1, 1, 0, 1, 1, 1, 1, 1, 1, 1, 1, 0],
+	[0, 4, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0, 0, 0, 1, 0, 0, 4, 0],
+	[0, 1, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0, 0, 0, 1, 0, 0, 1, 0],
+	[0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0],
+	[0, 1, 0, 0, 1, 0, 1, 0, 0, 0, 0, 0, 1, 0, 1, 0, 0, 1, 0],
+	[0, 1, 1, 1, 1, 0, 1, 1, 1, 0, 1, 1, 1, 0, 1, 1, 1, 1, 0],
+	[0, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0, 0, 0, 1, 0, 0, 0, 0],
+	[2, 2, 2, 0, 1, 0, 1, 1, 1, 1, 1, 1, 1, 0, 1, 0, 2, 2, 2],
+	[0, 0, 0, 0, 1, 0, 1, 0, 0, 3, 0, 0, 1, 0, 1, 0, 0, 0, 0],
+	[2, 2, 2, 2, 1, 1, 1, 0, 3, 3, 3, 0, 1, 1, 1, 2, 2, 2, 2],
+	[0, 0, 0, 0, 1, 0, 1, 0, 0, 0, 0, 0, 1, 0, 1, 0, 0, 0, 0],
+	[2, 2, 2, 0, 1, 0, 1, 1, 1, 2, 1, 1, 1, 0, 1, 0, 2, 2, 2],
+	[0, 0, 0, 0, 1, 0, 1, 0, 0, 0, 0, 0, 1, 0, 1, 0, 0, 0, 0],
+	[0, 1, 1, 1, 1, 1, 1, 1, 1, 0, 1, 1, 1, 1, 1, 1, 1, 1, 0],
+	[0, 1, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0, 0, 0, 1, 0, 0, 1, 0],
+	[0, 4, 1, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 1, 4, 0],
+	[0, 0, 1, 0, 1, 0, 1, 0, 0, 0, 0, 0, 1, 0, 1, 0, 1, 0, 0],
+	[0, 1, 1, 1, 1, 0, 1, 1, 1, 0, 1, 1, 1, 0, 1, 1, 1, 1, 0],
+	[0, 1, 0, 0, 0, 0, 0, 0, 1, 0, 1, 0, 0, 0, 0, 0, 0, 1, 0],
+	[0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0],
+	[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+];
+
+Pacman.WALLS = [
+    
+    [{"move": [0, 9.5]}, {"line": [3, 9.5]},
+     {"curve": [3.5, 9.5, 3.5, 9]}, {"line": [3.5, 8]},
+     {"curve": [3.5, 7.5, 3, 7.5]}, {"line": [1, 7.5]},
+     {"curve": [0.5, 7.5, 0.5, 7]}, {"line": [0.5, 1]},
+     {"curve": [0.5, 0.5, 1, 0.5]}, {"line": [9, 0.5]},
+     {"curve": [9.5, 0.5, 9.5, 1]}, {"line": [9.5, 3.5]}],
+
+    [{"move": [9.5, 1]},
+     {"curve": [9.5, 0.5, 10, 0.5]}, {"line": [18, 0.5]},
+     {"curve": [18.5, 0.5, 18.5, 1]}, {"line": [18.5, 7]},
+     {"curve": [18.5, 7.5, 18, 7.5]}, {"line": [16, 7.5]},
+     {"curve": [15.5, 7.5, 15.5, 8]}, {"line": [15.5, 9]},
+     {"curve": [15.5, 9.5, 16, 9.5]}, {"line": [19, 9.5]}],
+
+    [{"move": [2.5, 5.5]}, {"line": [3.5, 5.5]}],
+
+    [{"move": [3, 2.5]},
+     {"curve": [3.5, 2.5, 3.5, 3]},
+     {"curve": [3.5, 3.5, 3, 3.5]},
+     {"curve": [2.5, 3.5, 2.5, 3]},
+     {"curve": [2.5, 2.5, 3, 2.5]}],
+
+    [{"move": [15.5, 5.5]}, {"line": [16.5, 5.5]}],
+
+    [{"move": [16, 2.5]}, {"curve": [16.5, 2.5, 16.5, 3]},
+     {"curve": [16.5, 3.5, 16, 3.5]}, {"curve": [15.5, 3.5, 15.5, 3]},
+     {"curve": [15.5, 2.5, 16, 2.5]}],
+
+    [{"move": [6, 2.5]}, {"line": [7, 2.5]}, {"curve": [7.5, 2.5, 7.5, 3]},
+     {"curve": [7.5, 3.5, 7, 3.5]}, {"line": [6, 3.5]},
+     {"curve": [5.5, 3.5, 5.5, 3]}, {"curve": [5.5, 2.5, 6, 2.5]}],
+
+    [{"move": [12, 2.5]}, {"line": [13, 2.5]}, {"curve": [13.5, 2.5, 13.5, 3]},
+     {"curve": [13.5, 3.5, 13, 3.5]}, {"line": [12, 3.5]},
+     {"curve": [11.5, 3.5, 11.5, 3]}, {"curve": [11.5, 2.5, 12, 2.5]}],
+
+    [{"move": [7.5, 5.5]}, {"line": [9, 5.5]}, {"curve": [9.5, 5.5, 9.5, 6]},
+     {"line": [9.5, 7.5]}],
+    [{"move": [9.5, 6]}, {"curve": [9.5, 5.5, 10.5, 5.5]},
+     {"line": [11.5, 5.5]}],
+
+
+    [{"move": [5.5, 5.5]}, {"line": [5.5, 7]}, {"curve": [5.5, 7.5, 6, 7.5]},
+     {"line": [7.5, 7.5]}],
+    [{"move": [6, 7.5]}, {"curve": [5.5, 7.5, 5.5, 8]}, {"line": [5.5, 9.5]}],
+
+    [{"move": [13.5, 5.5]}, {"line": [13.5, 7]},
+     {"curve": [13.5, 7.5, 13, 7.5]}, {"line": [11.5, 7.5]}],
+    [{"move": [13, 7.5]}, {"curve": [13.5, 7.5, 13.5, 8]},
+     {"line": [13.5, 9.5]}],
+
+    [{"move": [0, 11.5]}, {"line": [3, 11.5]}, {"curve": [3.5, 11.5, 3.5, 12]},
+     {"line": [3.5, 13]}, {"curve": [3.5, 13.5, 3, 13.5]}, {"line": [1, 13.5]},
+     {"curve": [0.5, 13.5, 0.5, 14]}, {"line": [0.5, 17]},
+     {"curve": [0.5, 17.5, 1, 17.5]}, {"line": [1.5, 17.5]}],
+    [{"move": [1, 17.5]}, {"curve": [0.5, 17.5, 0.5, 18]}, {"line": [0.5, 21]},
+     {"curve": [0.5, 21.5, 1, 21.5]}, {"line": [18, 21.5]},
+     {"curve": [18.5, 21.5, 18.5, 21]}, {"line": [18.5, 18]},
+     {"curve": [18.5, 17.5, 18, 17.5]}, {"line": [17.5, 17.5]}],
+    [{"move": [18, 17.5]}, {"curve": [18.5, 17.5, 18.5, 17]},
+     {"line": [18.5, 14]}, {"curve": [18.5, 13.5, 18, 13.5]},
+     {"line": [16, 13.5]}, {"curve": [15.5, 13.5, 15.5, 13]},
+     {"line": [15.5, 12]}, {"curve": [15.5, 11.5, 16, 11.5]},
+     {"line": [19, 11.5]}],
+
+    [{"move": [5.5, 11.5]}, {"line": [5.5, 13.5]}],
+    [{"move": [13.5, 11.5]}, {"line": [13.5, 13.5]}],
+
+    [{"move": [2.5, 15.5]}, {"line": [3, 15.5]},
+     {"curve": [3.5, 15.5, 3.5, 16]}, {"line": [3.5, 17.5]}],
+    [{"move": [16.5, 15.5]}, {"line": [16, 15.5]},
+     {"curve": [15.5, 15.5, 15.5, 16]}, {"line": [15.5, 17.5]}],
+
+    [{"move": [5.5, 15.5]}, {"line": [7.5, 15.5]}],
+    [{"move": [11.5, 15.5]}, {"line": [13.5, 15.5]}],
+    
+    [{"move": [2.5, 19.5]}, {"line": [5, 19.5]},
+     {"curve": [5.5, 19.5, 5.5, 19]}, {"line": [5.5, 17.5]}],
+    [{"move": [5.5, 19]}, {"curve": [5.5, 19.5, 6, 19.5]},
+     {"line": [7.5, 19.5]}],
+
+    [{"move": [11.5, 19.5]}, {"line": [13, 19.5]},
+     {"curve": [13.5, 19.5, 13.5, 19]}, {"line": [13.5, 17.5]}],
+    [{"move": [13.5, 19]}, {"curve": [13.5, 19.5, 14, 19.5]},
+     {"line": [16.5, 19.5]}],
+
+    [{"move": [7.5, 13.5]}, {"line": [9, 13.5]},
+     {"curve": [9.5, 13.5, 9.5, 14]}, {"line": [9.5, 15.5]}],
+    [{"move": [9.5, 14]}, {"curve": [9.5, 13.5, 10, 13.5]},
+     {"line": [11.5, 13.5]}],
+
+    [{"move": [7.5, 17.5]}, {"line": [9, 17.5]},
+     {"curve": [9.5, 17.5, 9.5, 18]}, {"line": [9.5, 19.5]}],
+    [{"move": [9.5, 18]}, {"curve": [9.5, 17.5, 10, 17.5]},
+     {"line": [11.5, 17.5]}],
+
+    [{"move": [8.5, 9.5]}, {"line": [8, 9.5]}, {"curve": [7.5, 9.5, 7.5, 10]},
+     {"line": [7.5, 11]}, {"curve": [7.5, 11.5, 8, 11.5]},
+     {"line": [11, 11.5]}, {"curve": [11.5, 11.5, 11.5, 11]},
+     {"line": [11.5, 10]}, {"curve": [11.5, 9.5, 11, 9.5]},
+     {"line": [10.5, 9.5]}]
+];
+
+Object.prototype.clone = function () {
+    var i, newObj = (this instanceof Array) ? [] : {};
+    for (i in this) {
+        if (i === 'clone') {
+            continue;
+        }
+        if (this[i] && typeof this[i] === "object") {
+            newObj[i] = this[i].clone();
+        } else {
+            newObj[i] = this[i];
+        }
+    }
+    return newObj;
+};
+
+$(function(){
+  var el = document.getElementById("pacman");
+
+  if (Modernizr.canvas && Modernizr.localstorage && 
+      Modernizr.audio && (Modernizr.audio.ogg || Modernizr.audio.mp3)) {
+    window.setTimeout(function () { PACMAN.init(el, "https://raw.githubusercontent.com/daleharvey/pacman/master/"); }, 0);
+  } else { 
+    el.innerHTML = "Sorry, needs a decent browser<br /><small>" + 
+      "(firefox 3.6+, Chrome 4+, Opera 10+ and Safari 4+)</small>";
+  }
+});
+
+
+	</script>
+
+</body>
+</html>
+</body>
+</html>
